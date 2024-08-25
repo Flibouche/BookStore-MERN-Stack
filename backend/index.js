@@ -97,10 +97,29 @@ app.put('/books/:id', async (request, response) => {
         const result = await Book.findByIdAndUpdate(id, request.body);
         // Si le livre n'est pas trouvé, je renvoie une erreur 404.
         if (!result) {
-            return response.status(404).send({ message: 'Book not found' });
+            return response.status(404).json({ message: 'Book not found' });
         }
         // Je renvoie un message de succès si le livre est mis à jour.
         return response.status(200).send({ message: 'Book updated successfully' });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+// Je crée une route qui permet de supprimer un livre stocké dans ma base de données.
+app.delete('/books/:id', async (request, response) => {
+    try {
+        // Je récupère l'id du livre à supprimer.
+        const { id } = request.params;
+        // J'essaie de supprimer le livre stocké dans ma base de données avec l'id envoyé dans la requête.
+        const result = await Book.findByIdAndDelete(id);
+        // Si le livre n'est pas trouvé, je renvoie une erreur 404.
+        if (!result) {
+            return response.status(404).json({ message: 'Book not found' });
+        }
+        // Je renvoie un message de succès si le livre est supprimé.
+        return response.status(200).send({ message: 'Book deleted successfully' });
     } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
