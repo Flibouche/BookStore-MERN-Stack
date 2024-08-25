@@ -70,7 +70,37 @@ app.get('/books/:id', async (request, response) => {
         // J'essaie de récupérer le livre stocké dans ma base de données avec l'id envoyé dans la requête.
         const { id } = request.params;
         const book = await Book.findById(id);
-        return response.status(200).json({book});
+        return response.status(200).json({ book });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+// Je crée une route qui permet de mettre à jour un livre stocké dans ma base de données.
+app.put('/books/:id', async (request, response) => {
+    try {
+        if (
+            // Je vérifie que les champs title, author et publishYear sont bien envoyés dans la requête.
+            !request.body.title ||
+            !request.body.author ||
+            !request.body.publishYear
+        ) {
+            // Si un des champs est manquant, je renvoie une erreur 400.
+            return response.status(400).send({
+                message: "Send all required fields: title, author, publishYear",
+            });
+        }
+        // Je récupère l'id du livre à mettre à jour.
+        const { id } = request.params;
+        // J'essaie de mettre à jour le livre stocké dans ma base de données avec l'id envoyé dans la requête.
+        const result = await Book.findByIdAndUpdate(id, request.body);
+        // Si le livre n'est pas trouvé, je renvoie une erreur 404.
+        if (!result) {
+            return response.status(404).send({ message: 'Book not found' });
+        }
+        // Je renvoie un message de succès si le livre est mis à jour.
+        return response.status(200).send({ message: 'Book updated successfully' });
     } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
