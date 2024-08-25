@@ -51,16 +51,31 @@ app.post('/books', async (request, response) => {
 // Je crée une route qui permet de récupérer tous les livres stockés dans ma base de données.
 app.get('/books', async (request, response) => {
     try {
+        // J'essaie de récupérer tous les livres stockés dans ma base de données.
         const books = await Book.find({});
         return response.status(200).json({
             count: books.length,
             data: books
         });
     } catch (error) {
+        // Si je n'arrive pas à accéder à la requête, je renvoie une erreur 500.
         console.log(error.message);
         response.status(500).send({ message: error.message });
     }
-})
+});
+
+// Je crée une route qui permet de récupérer un seul livre stocké dans ma base de données.
+app.get('/books/:id', async (request, response) => {
+    try {
+        // J'essaie de récupérer le livre stocké dans ma base de données avec l'id envoyé dans la requête.
+        const { id } = request.params;
+        const book = await Book.findById(id);
+        return response.status(200).json({book});
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
 
 // Je me connecte à ma base de données MongoDB.
 mongoose
