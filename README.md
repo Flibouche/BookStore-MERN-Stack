@@ -1,4 +1,4 @@
-# BOOKSTORE-MERN-STACK
+# BookStore-MERN-Stack
 
 <img style="width:100%" src="https://github.com/Flibouche/BookStore-MERN-Stack/blob/main/images/BooksTable-MERN.png">
 <img style="width:100%" src="https://github.com/Flibouche/BookStore-MERN-Stack/blob/main/images/BooksCard-MERN.png">
