@@ -27,6 +27,26 @@ const Home = () => {
       })
   }, []);
 
+  // Méthode sans axios
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch('http://localhost:5555/books')
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch data');
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       setBooks(data.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setLoading(false);
+  //     })
+  // }, []);
+
   return (
     <div className="p-4">
       <div className="flex justify-between items-center">
