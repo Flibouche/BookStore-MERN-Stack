@@ -15,15 +15,15 @@ app.use(express.json());
 // J'ajoute un middleware qui permet de gérer les requêtes CORS.
 // CORS signifie Cross-Origin Resource Sharing. C'est une sécurité qui permet de contrôler les requêtes qui viennent d'un autre domaine que le mien.
 // Option 1 : Je peux autoriser toutes les requêtes en provenance de tous les domaines.
-// app.use(cors());
+app.use(cors());
 // Option 2 : Je peux autoriser les requête en provenance d'un domaine spécifique.
-app.use(
-    cors({
-        origin: 'http://localhost:3000',
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        allowedHeaders: ['Content-Type'],
-    })
-);
+// app.use(
+//     cors({
+//         origin: 'http://localhost:3000',
+//         methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//         allowedHeaders: ['Content-Type'],
+//     })
+// );
 
 // Je crée une route qui permet d'accéder à la page d'accueil de mon application.
 app.get('/', (request, response) => {
